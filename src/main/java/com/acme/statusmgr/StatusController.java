@@ -51,31 +51,14 @@ public class StatusController {
         Detail detail = new Detail();
         ActualInfoFacade maker = new ActualInfoFacade();
 
-        for(String deet : details){
-            switch(deet){
-                case "availableProcessors":
-                    detail = new ProcessorsAvailable(detail, maker);
-                    break;
-                case "freeJVMMemory":
-                    detail = new JVMMemoryFree(detail, maker);
-                    break;
-                case "totalJVMMemory":
-                    detail = new JVMMemoryTotal(detail, maker);
-                    break;
-                case "jreVersion":
-                    detail = new VersionJRE(detail, maker);
-                    break;
-                case "tempLocation":
-                    detail = new LocationTemp(detail, maker);
-                    break;
-                default:
-                    //BREAK
-            }
-        }
+        DecoratorFactory factory = new DecoratorFactory();
+        detail = factory.getDetail(details, detail, maker);
 
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name), detail.getDetails());
     }
+
+
 
 
 }
