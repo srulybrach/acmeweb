@@ -31,6 +31,14 @@ public class ServerStatus {
 
     }
 
+    public ServerStatus(long id, String contentHeader, String details) {
+        this.id = id;
+        this.contentHeader = contentHeader;
+
+        // Obtain current status of server
+        this.statusDesc = "Server is " + ServerManager.getCurrentServerStatus() + details;
+    }
+
     /**
      * get the id of this request
      *

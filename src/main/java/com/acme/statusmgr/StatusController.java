@@ -1,5 +1,6 @@
 package com.acme.statusmgr;
 
+import com.acme.decorators.*;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,4 +44,38 @@ public class StatusController {
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
     }
+
+
+    @RequestMapping("/status/detailed")
+    public ServerStatus serverStatusDetailedHandler(@RequestParam(value = "name", defaultValue = "Anonymous") String name, @RequestParam(value = "details", required = true) String[] details) {
+        Detail detail = new Detail();
+        ActualInfoFacade maker = new ActualInfoFacade();
+
+        for(String deet : details){
+            switch(deet){
+                case "availableProcessors":
+                    detail = new ProcessorsAvailable(detail, maker);
+                    break;
+                case "freeJVMMemory":
+                    detail = new JVMMemoryFree(detail, maker);
+                    break;
+                case "totalJVMMemory":
+                    detail = new JVMMemoryTotal(detail, maker);
+                    break;
+                case "jreVersion":
+                    detail = new VersionJRE(detail, maker);
+                    break;
+                case "tempLocation":
+                    detail = new LocationTemp(detail, maker);
+                    break;
+                default:
+                    //BREAK
+            }
+        }
+
+        return new ServerStatus(counter.incrementAndGet(),
+                String.format(template, name), detail.getDetails());
+    }
+
+
 }

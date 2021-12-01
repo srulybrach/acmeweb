@@ -1,7 +1,7 @@
 package com.acme.decorators;
 
 public class Detail {
-    String detail = "Server is up";
+    String detail = "";
 
     public String getDetails(){
         return detail;
