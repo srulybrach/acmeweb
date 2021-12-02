@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DecoratorFactory {
     @RequestMapping(value = "/exception", method = RequestMethod.GET)
     @ResponseBody
-    public Detail getDetails(String[] details, Detail detail, InfoInterface maker) throws Exception {
+    public Detail getDetails(String[] details, Detail detail, InfoInterface maker) throws FaliureException {
         for(String deet : details){
             switch(deet){
                 case "availableProcessors":
@@ -28,7 +28,7 @@ public class DecoratorFactory {
                     detail = new LocationTemp(detail, maker);
                     break;
                 default:
-                    throw new Exception("Invalid details option: " + deet);
+                    throw new FaliureException("Invalid details option: " + deet);
             }
         }
         return detail;

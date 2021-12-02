@@ -2,11 +2,10 @@ package com.acme.statusmgr.beans;
 
 import com.acme.decorators.Detail;
 import com.acme.info.ActualInfoFacade;
-import com.acme.info.FakeInfoFacade;
 import com.acme.info.InfoInterface;
 import com.acme.servermgr.ServerManager;
 import com.acme.statusmgr.DecoratorFactory;
-import com.acme.statusmgr.Exception;
+import com.acme.statusmgr.FaliureException;
 
 /**
  * A POJO that represents Server Status and can be returned as the result of a request.
@@ -42,7 +41,7 @@ public class ServerStatus {
         ServerStatus.maker = maker;
     }
 
-    public ServerStatus(long id, String contentHeader, String[] details) throws Exception {
+    public ServerStatus(long id, String contentHeader, String[] details) throws FaliureException {
         this.id = id;
         this.contentHeader = contentHeader;
 
