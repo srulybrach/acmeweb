@@ -1,5 +1,7 @@
 package com.acme.decorators;
 
+import com.acme.info.InfoInterface;
+
 public class ProcessorsAvailable extends DetailsDecorator {
     InfoInterface maker;
 

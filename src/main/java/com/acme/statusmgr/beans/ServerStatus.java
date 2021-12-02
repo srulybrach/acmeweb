@@ -1,6 +1,12 @@
 package com.acme.statusmgr.beans;
 
+import com.acme.decorators.Detail;
+import com.acme.info.ActualInfoFacade;
+import com.acme.info.FakeInfoFacade;
+import com.acme.info.InfoInterface;
 import com.acme.servermgr.ServerManager;
+import com.acme.statusmgr.DecoratorFactory;
+import com.acme.statusmgr.Exception;
 
 /**
  * A POJO that represents Server Status and can be returned as the result of a request.
@@ -10,6 +16,7 @@ public class ServerStatus {
     private long id;
     private String contentHeader;
     private String statusDesc = "Unknown";
+    static InfoInterface maker = new ActualInfoFacade();
 
     /**
      * Construct a ServerStatus using info passed in for identification, and obtaining current
@@ -31,13 +38,25 @@ public class ServerStatus {
 
     }
 
-    public ServerStatus(long id, String contentHeader, String details) {
+    public static void setMaker(InfoInterface maker) {
+        ServerStatus.maker = maker;
+    }
+
+    public ServerStatus(long id, String contentHeader, String[] details) throws Exception {
         this.id = id;
         this.contentHeader = contentHeader;
 
+        Detail detail = new Detail();
+
+        DecoratorFactory factory = new DecoratorFactory();
+        detail = factory.getDetails(details, detail, maker);
+
         // Obtain current status of server
-        this.statusDesc = "Server is " + ServerManager.getCurrentServerStatus() + details;
+        this.statusDesc = "Server is " + ServerManager.getCurrentServerStatus() + detail.getDetails();
     }
+
+
+
 
     /**
      * get the id of this request

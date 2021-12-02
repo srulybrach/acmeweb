@@ -1,9 +1,15 @@
 package com.acme.statusmgr;
 
 import com.acme.decorators.*;
+import com.acme.info.InfoInterface;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 public class DecoratorFactory {
-    Detail getDetail(String[] details, Detail detail, ActualInfoFacade maker) {
+    @RequestMapping(value = "/exception", method = RequestMethod.GET)
+    @ResponseBody
+    public Detail getDetails(String[] details, Detail detail, InfoInterface maker) throws Exception {
         for(String deet : details){
             switch(deet){
                 case "availableProcessors":
@@ -22,7 +28,7 @@ public class DecoratorFactory {
                     detail = new LocationTemp(detail, maker);
                     break;
                 default:
-                    //BREAK
+                    throw new Exception("Invalid details option: " + deet);
             }
         }
         return detail;

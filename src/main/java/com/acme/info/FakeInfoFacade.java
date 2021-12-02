@@ -1,5 +1,4 @@
-package com.acme.decorators;
-import java.*;
+package com.acme.info;
 
 public class FakeInfoFacade implements InfoInterface {
     @Override

@@ -1,4 +1,4 @@
-package com.acme.decorators;
+package com.acme.info;
 
 public interface InfoInterface {
     long getMemoryFreeJVM();

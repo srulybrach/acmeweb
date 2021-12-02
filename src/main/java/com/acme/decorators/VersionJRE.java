@@ -1,5 +1,7 @@
 package com.acme.decorators;
 
+import com.acme.info.InfoInterface;
+
 public class VersionJRE extends DetailsDecorator{
     InfoInterface maker;
     public VersionJRE(Detail detail, InfoInterface maker){

@@ -1,5 +1,7 @@
 package com.acme.decorators;
 
+import com.acme.info.InfoInterface;
+
 public class LocationTemp extends DetailsDecorator{
     InfoInterface maker;
     public LocationTemp(Detail detail, InfoInterface maker){

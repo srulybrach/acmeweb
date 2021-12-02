@@ -1,5 +1,7 @@
 package com.acme.decorators;
 
+import com.acme.info.InfoInterface;
+
 public class JVMMemoryTotal extends DetailsDecorator{
     InfoInterface maker;
     public JVMMemoryTotal(Detail detail, InfoInterface maker){
