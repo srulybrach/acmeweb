@@ -46,8 +46,6 @@ public class StatusController {
 
     @RequestMapping("/status/detailed")
     public ServerStatus serverStatusDetailedHandler(@RequestParam(value = "name", defaultValue = "Anonymous") String name, @RequestParam(value = "details", required = true) String[] details) throws FaliureException {
-         //switch statement that parses each detail in details and decorates the detail object accordingly
-
         return new ServerStatus(counter.incrementAndGet(),String.format(template, name), details);
     }
 }
