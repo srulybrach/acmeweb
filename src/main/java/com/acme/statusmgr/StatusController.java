@@ -29,7 +29,6 @@ public class StatusController {
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
     Logger logger = LoggerFactory.getLogger("StuffImInterestedIn");
-
     /**
      * Process a request for server status information
      *
@@ -42,5 +41,11 @@ public class StatusController {
             logger.info(detail);
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
+    }
+
+
+    @RequestMapping("/status/detailed")
+    public ServerStatus serverStatusDetailedHandler(@RequestParam(value = "name", defaultValue = "Anonymous") String name, @RequestParam(value = "details", required = true) String[] details) throws FaliureException {
+        return new ServerStatus(counter.incrementAndGet(),String.format(template, name), details);
     }
 }
